@@ -1,0 +1,21 @@
+{
+  "name": "recruit4us",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "build": "npm run -w @recruit4us/api build && npm run -w @recruit4us/web build",
+    "dev": "concurrently \"npm:dev:api\" \"npm:dev:web\"",
+    "dev:api": "npm run -w @recruit4us/api dev",
+    "dev:web": "npm run -w @recruit4us/web dev",
+    "lint": "eslint --ext .ts,.tsx .",
+    "typecheck": "tsc -b apps/api apps/web"
+  },
+  "devDependencies": {
+    "concurrently": "^9.0.0",
+    "eslint": "^9.9.0",
+    "typescript": "^5.5.4"
+  }
+}
