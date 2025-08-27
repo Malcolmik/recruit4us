@@ -1,0 +1,25 @@
+# dependencies
+node_modules/
+
+# builds
+dist/
+.next/
+.vercel/
+.turbo/
+.vite/
+
+# env / secrets
+.env
+.env.*
+apps/api/.env
+apps/web/.env
+
+# logs & misc
+*.log
+npm-debug.log*
+pnpm-debug.log*
+yarn-error.log*
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
