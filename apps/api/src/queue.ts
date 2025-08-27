@@ -9,7 +9,7 @@ const useTwilio =
 const url = env.REDIS_URL || '';
 const enableRedis = /^rediss?:\/\//i.test(url) && !/dummy/i.test(url);
 
-// BullMQ v5: pass connection **options** object
+// BullMQ v5 expects connection **options** (not a Redis instance)
 const connection: ConnectionOptions | undefined = enableRedis
   ? {
       url,

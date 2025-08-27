@@ -59,7 +59,7 @@ r.post('/booking/:token/confirm', async (req, res) => {
           to,
           message: `Reminder: your interview is at ${new Date(slot).toLocaleString()}`
         }, { delay })
-        .catch(err => console.error('[queue add failed]', err));
+        .catch((err: any) => console.error('[queue add failed]', err));
     }
 
     // Respond immediately
