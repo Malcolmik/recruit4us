@@ -9,17 +9,15 @@ const useTwilio =
 const url = env.REDIS_URL || '';
 const enableRedis = /^rediss?:\/\//i.test(url) && !/dummy/i.test(url);
 
-// BullMQ v5 expects connection **options** (not a Redis instance)
-const connection: ConnectionOptions | undefined = enableRedis
-  ? {
-      url,
-      maxRetriesPerRequest: null,
-      enableReadyCheck: false,
-    }
-  : undefined;
+// Build a concrete options object (not undefined)
+const connectionOpts = {
+  url,
+  maxRetriesPerRequest: null as null,
+  enableReadyCheck: false,
+} as ConnectionOptions;
 
 export const remindersQueue: any = enableRedis
-  ? new Queue('reminders', { connection })
+  ? new Queue('reminders', { connection: connectionOpts })
   : { add: async () => console.log('[remindersQueue] skipped (no Redis configured)') };
 
 export function startReminderWorker() {
@@ -34,6 +32,6 @@ export function startReminderWorker() {
       if (useTwilio) await twilioSendText(to, message);
       else await sendText(to, message);
     },
-    { connection }
+    { connection: connectionOpts }
   );
 }
