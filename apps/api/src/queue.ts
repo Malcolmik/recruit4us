@@ -9,12 +9,12 @@ const useTwilio =
 const url = env.REDIS_URL || '';
 const enableRedis = /^rediss?:\/\//i.test(url) && !/dummy/i.test(url);
 
-// Build a concrete options object (not undefined)
-const connectionOpts = {
+// Build a concrete options object (BullMQ v5 expects ConnectionOptions)
+const connectionOpts: ConnectionOptions = {
   url,
-  maxRetriesPerRequest: null as null,
+  maxRetriesPerRequest: null,
   enableReadyCheck: false,
-} as ConnectionOptions;
+};
 
 export const remindersQueue: any = enableRedis
   ? new Queue('reminders', { connection: connectionOpts })
