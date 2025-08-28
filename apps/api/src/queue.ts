@@ -6,12 +6,11 @@ import { twilioSendText } from './twilio.js';
 const useTwilio =
   !!(env.TWILIO_ACCOUNT_SID && env.TWILIO_AUTH_TOKEN && env.TWILIO_WHATSAPP_FROM);
 
-const url = env.REDIS_URL || '';
-const enableRedis = /^rediss?:\/\//i.test(url) && !/dummy/i.test(url);
+const enableRedis = /^rediss?:\/\//i.test(env.REDIS_URL || '') && !/dummy/i.test(env.REDIS_URL || '');
 
-// Build a concrete options object (BullMQ v5 expects ConnectionOptions)
+// Build a concrete options object (BullMQ v5 wants ConnectionOptions, never undefined)
 const connectionOpts: ConnectionOptions = {
-  url,
+  url: (env.REDIS_URL || 'redis://unused'),
   maxRetriesPerRequest: null,
   enableReadyCheck: false,
 };
